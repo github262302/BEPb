@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "33 20 * * *"
+    - cron: "0/2 20 * * *"
 
 jobs:
   check-upstream:
