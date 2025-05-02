@@ -1,0 +1,17 @@
+on:
+  schedule:
+    - cron: "32 20 * * *"
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git remote add upstream https://github.com/BEPb/BEPb.git
+          git fetch upstream
+          git log HEAD..upstream/main --oneline > diff.txt
+          if [ -s diff.txt ]; then
+            curl -X POST -H "Content-Type: application/json" \
+              -d '{"content":"upstream updated!"}' https://discord.com/api/webhooks/1367941087590617228/Hi8end5XHDt-YgKgoGRGQwIXSk7UjXpSnelgY1m2oaZXTTssjdelgQdr0IWx84Me5p6s
+          fi
